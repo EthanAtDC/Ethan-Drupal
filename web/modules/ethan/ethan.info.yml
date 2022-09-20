@@ -1,0 +1,5 @@
+name: ethan
+type: module
+description: Testing
+package: Custom
+core_version_requirement: ^9 || ^10

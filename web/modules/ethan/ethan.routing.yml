@@ -1,8 +1,16 @@
 ethan.example:
-  path: '/ethan/example'
+  path: '/ethan'
   defaults:
     _title: 'Example'
     _controller: '\Drupal\ethan\Controller\EthanController::build'
   requirements:
     _permission: 'access content'
 
+
+entity.ethan.settings:
+  path: 'admin/structure/ethan'
+  defaults:
+    _form: '\Drupal\ethan\Form\EthanSettingsForm'
+    _title: 'my-content'
+  requirements:
+    _permission: 'administer my-content'

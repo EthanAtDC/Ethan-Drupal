@@ -1,0 +1,5 @@
+ethan.add_form:
+  title: 'Add my-content'
+  route_name: entity.ethan.add_form
+  appears_on:
+    - entity.ethan.collection

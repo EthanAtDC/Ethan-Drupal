@@ -4,3 +4,81 @@
  * @file
  * Primary module hooks for ethan module.
  */
+
+use Drupal\Core\Render\Element;
+use Drupal\ethan\Entity\Ethan;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ethan_theme() {
+  return [
+    'ethan' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for my-content templates.
+ *
+ * Default template: ethan.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the my-content information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_ethan(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function ethan_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish my-contents.
+      $storage = \Drupal::entityTypeManager()->getStorage('ethan');
+      $ethan_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($ethan_ids) as $ethan) {
+        $ethan->set('status', FALSE);
+        $ethan->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize my-contents.
+      $storage = \Drupal::entityTypeManager()->getStorage('ethan');
+      $ethan_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($ethan_ids) as $ethan) {
+        $ethan->setOwnerId(0);
+        $ethan->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function ethan_user_predelete(UserInterface $account) {
+  // Delete my-contents.
+  $storage = \Drupal::entityTypeManager()->getStorage('ethan');
+  $ethan_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $ethans = $storage->loadMultiple($ethan_ids);
+  $storage->delete($ethans);
+}

@@ -1,0 +1,3 @@
+administer my-content:
+  title: 'Administer my-content settings'
+  restrict access: true

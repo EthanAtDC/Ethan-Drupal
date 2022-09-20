@@ -1,0 +1,10 @@
+entity.ethan.settings:
+  title: 'my-content'
+  description: 'Configure a my-content entity type.'
+  route_name:  entity.ethan.settings
+  parent: system.admin_structure
+entity.ethan.collection:
+  title: 'my-contents'
+  description: 'List of my-contents.'
+  route_name: entity.ethan.collection
+  parent: system.admin_content

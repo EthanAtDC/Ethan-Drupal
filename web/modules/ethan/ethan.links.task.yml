@@ -1,0 +1,22 @@
+entity.ethan.settings:
+  title: 'Settings'
+  route_name: entity.ethan.settings
+  base_route: entity.ethan.settings
+entity.ethan.view:
+  title: 'View'
+  route_name: entity.ethan.canonical
+  base_route: entity.ethan.canonical
+entity.ethan.edit_form:
+  title: 'Edit'
+  route_name: entity.ethan.edit_form
+  base_route: entity.ethan.canonical
+entity.ethan.delete_form:
+  title: 'Delete'
+  route_name: entity.ethan.delete_form
+  base_route: entity.ethan.canonical
+  weight: 10
+entity.ethan.collection:
+  title: 'my-contents'
+  route_name: entity.ethan.collection
+  base_route: system.admin_content
+  weight: 10

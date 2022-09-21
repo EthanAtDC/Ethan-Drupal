@@ -5,7 +5,7 @@ namespace Drupal\ethan\src\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
 
-class EthanSettingsForm extends FormBase {
+class EthanEntitySettingsForm extends FormBase {
 
     /**
    * {@inheritdoc}

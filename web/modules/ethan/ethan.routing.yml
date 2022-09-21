@@ -9,7 +9,7 @@ ethan.example:
 entity.ethan.settings:
   path: '/ethan-entity'
   defaults:
-    _form: '\Drupal\ethan\Form\EthanSettingsForm'
+    _form: '\Drupal\ethan\Form\EthanEntitySettingsForm'
     _title: 'my-content'
   requirements:
     _permission: 'administer my-content'

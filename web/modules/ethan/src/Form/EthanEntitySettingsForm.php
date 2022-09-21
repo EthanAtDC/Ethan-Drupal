@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\ethan\src\Form;
+namespace Drupal\ethan\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;

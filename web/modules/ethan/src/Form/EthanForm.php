@@ -20,12 +20,12 @@ class EthanForm extends ContentEntityForm {
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
 
-    $form['contacts'] = [
+    $form['langcode'] = [
+      '#title' => $this->t('Language'),
       '#type' => 'language_select',
-      '#defualt_value' => $entity->getUntranslated()->language()->getId(),
+      '#default_value' => $entity->getUntranslated()->language()->getId(),
       '#languages' => Language::STATE_ALL,
     ];
-
     return $form;
 
   }

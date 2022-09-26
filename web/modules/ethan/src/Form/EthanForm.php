@@ -15,7 +15,16 @@ class EthanForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) {
+  public function getEntity() 
+  {
+    return $this->entity;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildForm(array $form, FormStateInterface $form_state) 
+  {
 
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;

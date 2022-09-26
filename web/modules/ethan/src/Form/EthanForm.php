@@ -10,6 +10,8 @@ use Drupal\Core\Form\FormStateInterface;
  */
 class EthanForm extends ContentEntityForm {
 
+  protected $entity;
+
   /**
    * {@inheritdoc}
    */

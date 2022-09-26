@@ -197,13 +197,16 @@ class Ethan extends ContentEntityBase implements EthanInterface {
         $fields['id'] = BaseFieldDefinition::create('integer')
         ->setLabel(t('ID'))
         ->setDescription(t('The ID of the Contact entity.'))
-        ->setReadOnly(TRUE);
+        ->setReadOnly(TRUE)
+        ->setRequired(FALSE);
 
         // Standard field, unique outside of the scope of the current project.
         $fields['uuid'] = BaseFieldDefinition::create('uuid')
         ->setLabel(t('UUID'))
         ->setDescription(t('The UUID of the Contact entity.'))
-        ->setReadOnly(TRUE);
+        ->setReadOnly(TRUE)
+        ->setRequired(FALSE);
+
 
 
         $fields['content'] = BaseFieldDefinition::create('string')
@@ -224,7 +227,8 @@ class Ethan extends ContentEntityBase implements EthanInterface {
                 'weight' => -6,
             ])
             ->setDisplayConfigurable('form', TRUE)
-            ->setDisplayConfigurable('view', TRUE);
+            ->setDisplayConfigurable('view', TRUE)
+            ->setRequired(FALSE);
 
         return $fields;
     }

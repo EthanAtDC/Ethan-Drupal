@@ -4,6 +4,7 @@ namespace Drupal\ethan\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\User;
 
 /**
  * Provides a ethan form.
@@ -32,7 +33,7 @@ class EthanForm extends ContentEntityForm {
     $form['message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Message'),
-      'default_value' => $entity,
+      'default_value' => $this->entity->get('uid') == NULL ? NULL : User::load($this->entity->get('uid')),
       '#required' => TRUE,
     ];
 

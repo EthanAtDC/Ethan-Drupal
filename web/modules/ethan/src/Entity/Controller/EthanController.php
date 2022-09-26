@@ -28,7 +28,7 @@ class EthanController extends EntityListBuilder {
   }
 
   public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, UrlGeneratorInterface $url_generator) {
-    parent::__construct($entity_type, $storage, $url_generator);
+    parent::__construct($entity_type, $storage);
     $this->urlGenerator = $url_generator;
   }
 

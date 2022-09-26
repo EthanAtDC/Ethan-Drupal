@@ -3,7 +3,6 @@
 namespace Drupal\ethan\Form;
 
 use Drupal\Core\Entity\ContentEntityForm;
-use Drupal\Core\Language\Language;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -22,7 +21,7 @@ class EthanForm extends ContentEntityForm {
     $form['message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Message'),
-      'default_value' => $entity->getEntityType(),
+      'default_value' => $entity,
       '#required' => TRUE,
     ];
 

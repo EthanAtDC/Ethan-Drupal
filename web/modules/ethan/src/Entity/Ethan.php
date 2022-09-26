@@ -2,7 +2,7 @@
 
 namespace Drupal\ethan\Entity;
 
-use Drupal\Component\Plugin\Context\ContextInterface;
+use Drupal\ethan\EthanInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
@@ -137,7 +137,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
  */
 
 
-class ethan extends ContentEntityBase implements ContextInterface {
+class Ethan extends ContentEntityBase implements EthanInterface {
 
     use EntityChangedTrait;
 
@@ -166,9 +166,46 @@ class ethan extends ContentEntityBase implements ContextInterface {
         return $this;
     }
 
+    public function getOwner()
+    {
+        return $this->get('user_id')->entity;     
+    }
+
+    public function getOwnerId()
+    {
+        return $this->get('user_id')->target_id;  
+    }
+
+    public function setOwner(UserInterface $account)
+    {
+        $this->set('user_id', $account->id());
+        return $this;       
+    }
+
+    public function setOwnerId($uid)
+    {
+        $this->set('user_id', $uid);
+        return $this;
+    }
+
+
 
     public static function baseFieldDefinitions(EntityTypeInterface $entity_type)
     {
+
+        // Standard field, used as unique if primary index.
+        $fields['id'] = BaseFieldDefinition::create('integer')
+        ->setLabel(t('ID'))
+        ->setDescription(t('The ID of the Contact entity.'))
+        ->setReadOnly(TRUE);
+
+        // Standard field, unique outside of the scope of the current project.
+        $fields['uuid'] = BaseFieldDefinition::create('uuid')
+        ->setLabel(t('UUID'))
+        ->setDescription(t('The UUID of the Contact entity.'))
+        ->setReadOnly(TRUE);
+
+
         $fields['content'] = BaseFieldDefinition::create('string')
             ->setLabel(t('Content'))
             ->setDescription(t('The content entered by our user'))

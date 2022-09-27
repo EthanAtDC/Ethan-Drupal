@@ -10,6 +10,6 @@ ethan.form:
   path: '/ethan-form'
   defaults:
     _title: 'Ethan'
-    _form: 'Drupal\ethan\Form\EthanForm'
+    _entity_form: ethan.form
   requirements:
     _permission: 'access content'

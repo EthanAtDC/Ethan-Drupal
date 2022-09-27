@@ -29,6 +29,7 @@ class EthanForm extends ContentEntityForm {
 
     $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
+    $ethan = $this->entity;
 
     $form['message'] = [
       '#type' => 'textarea',

@@ -19,13 +19,13 @@ class EthanController extends EntityListBuilder {
   /**
    * {@inheritdoc}
    */
-  public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
-    return new static(
-      $entity_type,
-      $container->get('entity_type.manager')->getStorage($entity_type->id()),
-      $container->get('url_generator')
-    );
-  }
+  // public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
+  //   return new static(
+  //     $entity_type,
+  //     $container->get('entity_type.manager')->getStorage($entity_type->id()),
+  //     $container->get('url_generator')
+  //   );
+  // }
 
   public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, UrlGeneratorInterface $url_generator) {
     parent::__construct($entity_type, $storage);

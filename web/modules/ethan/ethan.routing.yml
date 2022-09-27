@@ -6,3 +6,11 @@ ethan.example:
   requirements:
     _permission: 'access content'
 
+
+ethan.basic_form:
+  path: '/ethan-form'
+  defaults:
+    _title: 'Ethan basic'
+    _form: 'Drupal\ethan\Form\EthanBasicForm'
+  requirements:
+    _permission: 'access content'

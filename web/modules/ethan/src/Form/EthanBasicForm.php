@@ -23,7 +23,7 @@ class EthanBasicForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $entity = $this->entity;
+    $entity = $this->Ethan;
 
 
     $form['message'] = [

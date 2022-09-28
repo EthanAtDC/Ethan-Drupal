@@ -2,11 +2,11 @@
 
 namespace Drupal\ethan\Form;
 
+use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\ethan\Entity\Ethan;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\Render\Element\Form;
-use Drupal\node\Entity\Node;
+use Drupal\ethan\EthanInterface;
 
 /**
  * Provides a ethan form.
@@ -61,14 +61,14 @@ class EthanBasicForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
 
-    $entity = $this->Ethan;
-    
+    // $entity = $this->getEntity();
+
     $form = [
       'type' => 'field_content', 
       'title' => 'Title', 
       'uid' => 1
     ];
-    $node = $entity::entityTypeManager()
+    $node = Ethan::baseFieldDefinitions(EthanInterface)
       ->getStorage('node')
       ->create($form);
     $node->save();

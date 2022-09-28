@@ -68,7 +68,7 @@ class EthanBasicForm extends FormBase {
       'title' => 'Title', 
       'uid' => 1
     ];
-    $node = Ethan::baseFieldDefinitions(EthanInterface)
+    $node = Drupal::entityTypeManager()
       ->getStorage('node')
       ->create($form);
     $node->save();

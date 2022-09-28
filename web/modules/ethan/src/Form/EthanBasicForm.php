@@ -5,6 +5,8 @@ namespace Drupal\ethan\Form;
 use Drupal\Core\Form\FormBase;
 use Drupal\ethan\Entity\Ethan;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Element\Form;
+use Drupal\node\Entity\Node;
 
 /**
  * Provides a ethan form.
@@ -14,17 +16,18 @@ class EthanBasicForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function getFormId() {
+  public function getFormId() 
+  {
     return 'ethan_ethan_basic';
   }
+
 
   /**
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $entity = $this->Ethan;
-
+    // $entity = $this->Ethan;
 
     $form['message'] = [
       '#type' => 'textarea',
@@ -57,8 +60,19 @@ class EthanBasicForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
-    $entity = $this->getEntity();
-    $entity->save();
+
+    $entity = $this->Ethan;
+    
+    $form = [
+      'type' => 'field_content', 
+      'title' => 'Title', 
+      'uid' => 1
+    ];
+    $node = $entity::entityTypeManager()
+      ->getStorage('node')
+      ->create($form);
+    $node->save();
+
   }
 
 }

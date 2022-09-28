@@ -13,3 +13,11 @@ ethan.form_basic:
     _form: 'Drupal\ethan\Form\EthanBasicForm'
   requirements:
     _permission: 'access content'
+
+# ethan.entity:
+#   path: '/ethan-form-entity'
+#   defaults:
+#     _title: 'Ethan Entity'
+#     _entity_form: ethan.Ethan
+#   requirements:
+#     _permission: 'access content'

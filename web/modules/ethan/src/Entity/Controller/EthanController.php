@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Entity\EntityListBuilder;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Routing\UrlGeneratorInterface;
+use Drupal\ethan\Entity\Ethan;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -16,16 +17,6 @@ class EthanController extends EntityListBuilder {
 
   protected $urlGenerator;
 
-  /**
-   * {@inheritdoc}
-   */
-  // public static function createInstance(ContainerInterface $container, EntityTypeInterface $entity_type) {
-  //   return new static(
-  //     $entity_type,
-  //     $container->get('entity_type.manager')->getStorage($entity_type->id()),
-  //     $container->get('url_generator')
-  //   );
-  // }
 
   public function __construct(EntityTypeInterface $entity_type, EntityStorageInterface $storage, UrlGeneratorInterface $url_generator) {
     parent::__construct($entity_type, $storage);

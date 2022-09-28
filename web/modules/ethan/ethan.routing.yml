@@ -1,37 +1,3 @@
-# # Route name can be used in several places; e.g. links, redirects, and local
-# # actions.
-# entity.ethan.canonical:
-#   path: '/ethan'
-#   defaults:
-#     # Calls the view controller, defined in the annotation of the contact
-#     # entity. This marks this route as belonging to this entity type.
-#     _entity_view: 'ethan'
-#     _title: 'Content'
-#   requirements:
-#     # Calls the access controller of the entity, passing in the suffix ('view')
-#     # as the $operation parameter to checkAccess().
-#     _permission: 'access content'
-
-# entity.ethan.collection:
-#   path: '/ethan-example'
-#   defaults:
-#   # Calls the list controller, defined in the annotation of the contact entity.
-#     _entity_list: 'ethan'
-#     _title: 'Example'
-#   requirements:
-#   # Checks for permission directly.
-#     _permission: 'access content'
-
-# entity.ethan.edit_form:
-#   path: '/ethan-form'
-#   defaults:
-#   # Calls the form.edit controller, defined in the contact entity.
-#     _entity_form: ethan.default
-#     _title: 'Edit form'
-#   requirements:
-    # Calls the access controller of the entity, passing in the suffix
-    # ('update') as the $operation parameter to checkAccess().
-    # _permission: 'access content'    
 ethan.example:
   path: '/ethan/example'
   defaults:
@@ -39,11 +5,11 @@ ethan.example:
     _controller: '\Drupal\ethan\Entity\Controller\EthanController'
   requirements:
     _permission: 'access content'
-    
-ethan.form:
+
+ethan.form_basic:
   path: '/ethan-form'
   defaults:
-    _title: 'Ethan'
-    _entity_form: ethan.form
+    _title: 'Ethan Form'
+    _form: 'Drupal\ethan\Form\EthanBasicForm'
   requirements:
     _permission: 'access content'

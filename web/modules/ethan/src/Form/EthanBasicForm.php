@@ -2,39 +2,33 @@
 
 namespace Drupal\ethan\Form;
 
-use Drupal\Core\Entity\ContentEntityForm;
+use Drupal\Core\Form\FormBase;
+use Drupal\ethan\Entity\Ethan;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\user\Entity\User;
 
 /**
  * Provides a ethan form.
  */
-class EthanForm extends ContentEntityForm {
-
-  protected $entity;
+class EthanBasicForm extends FormBase {
 
   /**
    * {@inheritdoc}
    */
-  public function getEntity() 
-  {
-    return $this->entity;
+  public function getFormId() {
+    return 'ethan_ethan_basic';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state) 
-  {
+  public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $form = parent::buildForm($form, $form_state);
     $entity = $this->entity;
-    $ethan = $this->entity;
+
 
     $form['message'] = [
       '#type' => 'textarea',
       '#title' => $this->t('Message'),
-      'default_value' => $this->entity->get('uid') == NULL ? NULL : User::load($this->entity->get('uid')),
       '#required' => TRUE,
     ];
 
@@ -52,12 +46,19 @@ class EthanForm extends ContentEntityForm {
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state)
-  {
+  public function validateForm(array &$form, FormStateInterface $form_state) {
+    if (mb_strlen($form_state->getValue('message')) < 10) {
+      $form_state->setErrorByName('message', $this->t('Message should be at least 10 characters.'));
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
     $entity = $this->getEntity();
     $entity->save();
   }
-
 
 }

@@ -21,3 +21,10 @@ ethan.form_basic:
 #     _entity_form: ethan.Ethan
 #   requirements:
 #     _permission: 'access content'
+entity.Cat.settings:
+  path: 'admin/structure/Cat'
+  defaults:
+    _form: '\Drupal\ethan\Form\CatSettingsForm'
+    _title: 'Cat'
+  requirements:
+    _permission: 'administer cat'

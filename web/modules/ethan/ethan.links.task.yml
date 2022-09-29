@@ -1,0 +1,22 @@
+entity.Cat.settings:
+  title: 'Settings'
+  route_name: entity.Cat.settings
+  base_route: entity.Cat.settings
+entity.Cat.view:
+  title: 'View'
+  route_name: entity.Cat.canonical
+  base_route: entity.Cat.canonical
+entity.Cat.edit_form:
+  title: 'Edit'
+  route_name: entity.Cat.edit_form
+  base_route: entity.Cat.canonical
+entity.Cat.delete_form:
+  title: 'Delete'
+  route_name: entity.Cat.delete_form
+  base_route: entity.Cat.canonical
+  weight: 10
+entity.Cat.collection:
+  title: 'Cats'
+  route_name: entity.Cat.collection
+  base_route: system.admin_content
+  weight: 10

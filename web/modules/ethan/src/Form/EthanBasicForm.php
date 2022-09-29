@@ -61,30 +61,29 @@ class EthanBasicForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
 
-    # Create Node entity -> Pass it the machine name of our form
-    $node = Node::create([
-      'type' => 'my_new_content', 
-      'title' => 'Title ' . time(),
-      // 'field_content' => $form_state->getValue('task'),
-      'uid' => 1,
-    ]);
-
-    # Retrieve the field data and form state for the node
-    $node->set('field_content', $form_state->getValue('message'));
-    // $node->set('field_content', "THIS IS BAD");
-
-    # Save the node
-    $node->save();
-
-    // $node = Ethan::create([
+    // # Create Node entity -> Pass it the machine name of our form
+    // $node = Node::create([
     //   'type' => 'my_new_content', 
     //   'title' => 'Title ' . time(),
     //   // 'field_content' => $form_state->getValue('task'),
     //   'uid' => 1,
     // ]);
-    // $node->set('field_content', $form_state->getEntity('message'));
+
+    // # Retrieve the field data and form state for the node
+    // $node->set('field_content', $form_state->getValue('message'));
     // // $node->set('field_content', "THIS IS BAD");
+
+    // # Save the node
     // $node->save();
+
+    $entity_type = 'field_content';
+
+    # Need to retrieve the entity ID
+    $entity_id;
+
+    $entity = \Drupal::entityTypeManager()->getStorage($entity_type)->load($entity_id);
+    $storage = \Drupal::entityTypeManager()->getStorage('');
+
 
   }
 

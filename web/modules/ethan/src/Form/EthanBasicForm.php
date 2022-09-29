@@ -5,6 +5,7 @@ namespace Drupal\ethan\Form;
 use Drupal;
 use Drupal\Core\Form\FormBase;
 use Drupal\ethan\Entity\Ethan;
+use \Drupal\node\Entity\Node;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ethan\EthanInterface;
 
@@ -27,7 +28,6 @@ class EthanBasicForm extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    // $entity = $this->Ethan;
 
     $form['message'] = [
       '#type' => 'textarea',
@@ -61,16 +61,14 @@ class EthanBasicForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
 
-    // $entity = $this->getEntity();
-
-    $form = [
-      'type' => 'field_content', 
-      'title' => 'Title', 
-      'uid' => 1
-    ];
-    $node = Drupal::entityTypeManager()
-      ->getStorage('node')
-      ->create($form);
+    $node = Node::create([
+      'type' => 'my_new_content', 
+      'title' => 'Title ' . time(),
+      // 'field_content' => $form_state->getValue('task'),
+      'uid' => 1,
+    ]);
+    $node->set('field_content', $form_state->getValue('message'));
+    // $node->set('field_content', "THIS IS BAD");
     $node->save();
 
   }

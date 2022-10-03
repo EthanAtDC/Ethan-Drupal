@@ -150,6 +150,17 @@ class Ethan extends ContentEntityBase implements EthanInterface {
         ];
     }
 
+    public function preSave(EntityStorageInterface $storage)
+    {
+        parent::preSave($storage);
+
+        if (!$this->getOwnerId()) 
+        {
+            $this->setOwnerId(0);
+        }
+
+    }
+
     /**
      * {@inheritdoc}
      */

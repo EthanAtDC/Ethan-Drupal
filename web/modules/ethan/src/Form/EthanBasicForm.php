@@ -55,31 +55,38 @@ class EthanBasicForm extends FormBase {
     }
   }
 
+  // public function save(array $form, FormStateInterface $form_state) 
+  // {
+  //   $result = parent::save($form, $form_state);
+  //   $entity = $this->getEntity();
+
+  //   # content = label
+  //   $message_arguments = ['%content' => $entity->toLink()->toString()];
+  //   $logger_arguments = [
+  //     '%content' => $entity->label(),
+  //     'link' => $entity->toLink($this->t('View'))->toString(),
+  //   ];
+
+  //   switch ($result) 
+  //   {
+  //     case SAVED_NEW:
+  //       $this->messenger()->addStatus($this->t('The message has been sent.'));
+  //       break;
+  //   }
+
+  //   $form_state->setRedirect('entity.Ethan.canonical', ['Ethan' => $entity->id()]);
+
+  //   $this->messenger()->addStatus($this->t('Excuted save method'));
+
+
+  //   return $result;
+  // }
+
   /**
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
-
-
-    $result = parent::save($form, $form_state);
-    $entity = $this->getEntity();
-
-    # content = label
-    $message_arguments = ['%content' => $entity->toLink()->toString()];
-    $logger_arguments = [
-      '%content' => $entity->label(),
-      'link' => $entity->toLink($this->t('View'))->toString(),
-    ];
-
-    switch ($result) 
-    {
-      case SAVED_NEW:
-        $this->messenger()->addStatus($this->t('The message has been sent.'));
-        break;
-    }
-
-    return $result;
 
     // # Create Node entity -> Pass it the machine name of our form
     // $node = Node::create([
@@ -96,13 +103,15 @@ class EthanBasicForm extends FormBase {
     // # Save the node
     // $node->save();
 
-    // $entity = Ethan::create([
-    //   'title' => 'Title ' . time(),
-    //   // 'field_content' => $form_state->getValue('task'),
-    //   'uid' => 1,
-    // ]);
-    // $entity->set('field_content', $form_state->getValue('message'));
-    // $entity->save();
+
+    $entity = Ethan::create([
+      'type' => 'ethan',
+      'title' => 'Title ' . time(),
+      // 'field_content' => $form_state->getValue('task'),
+      'uid' => 1,
+    ]);
+    $entity->set('Ethan', $form_state->getValue('message'));
+    $entity->save();
 
 
   }

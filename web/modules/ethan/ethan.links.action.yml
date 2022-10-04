@@ -1,5 +1,0 @@
-Cat.add_form:
-  title: 'Add cat'
-  route_name: entity.Cat.add_form
-  appears_on:
-    - entity.Cat.collection

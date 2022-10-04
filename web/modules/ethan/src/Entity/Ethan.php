@@ -143,60 +143,60 @@ class Ethan extends ContentEntityBase implements EthanInterface {
 
     public static function preCreate(EntityStorageInterface $storage, array &$values)
     {
-        parent::preCreate($storage_controller, $values);
+        // parent::preCreate($storage_controller, $values);
 
-        $values += [
-            'content' => \Drupal::currentUser()->id(),
-        ];
+        // $values += [
+        //     'content' => \Drupal::currentUser()->id(),
+        // ];
     }
 
-    public function preSave(EntityStorageInterface $storage)
-    {
-        parent::preSave($storage);
+    // public function preSave(EntityStorageInterface $storage)
+    // {
+    //     parent::preSave($storage);
 
-        if (!$this->getOwnerId()) 
-        {
-            $this->setOwnerId(0);
-        }
+    //     if (!$this->getOwnerId()) 
+    //     {
+    //         $this->setOwnerId(0);
+    //     }
 
-    }
+    // }
 
     /**
      * {@inheritdoc}
      */
     public function getContent() 
     {
-        return $this->get('content')->entity;
+        // return $this->get('content')->entity;
     }
     /**
      * {@inheritdoc}
      */
     public function setContent(UserInterface $content) 
     {
-        $this->content = $content;
-        return $this;
+        // $this->content = $content;
+        // return $this;
     }
 
     public function getOwner()
     {
-        return $this->get('user_id')->entity;     
+        // return $this->get('user_id')->entity;     
     }
 
     public function getOwnerId()
     {
-        return $this->get('user_id')->target_id;  
+        // return $this->get('user_id')->target_id;  
     }
 
     public function setOwner(UserInterface $account)
     {
-        $this->set('user_id', $account->id());
-        return $this;       
+        // $this->set('user_id', $account->id());
+        // return $this;       
     }
 
     public function setOwnerId($uid)
     {
-        $this->set('user_id', $uid);
-        return $this;
+        // $this->set('user_id', $uid);
+        // return $this;
     }
 
 
@@ -207,14 +207,14 @@ class Ethan extends ContentEntityBase implements EthanInterface {
         // Standard field, used as unique if primary index.
         $fields['id'] = BaseFieldDefinition::create('integer')
         ->setLabel(t('ID'))
-        ->setDescription(t('The ID of the Contact entity.'))
+        ->setDescription(t('nothing'))
         ->setReadOnly(TRUE)
         ->setRequired(FALSE);
 
         // Standard field, unique outside of the scope of the current project.
         $fields['uuid'] = BaseFieldDefinition::create('uuid')
         ->setLabel(t('UUID'))
-        ->setDescription(t('The UUID of the Contact entity.'))
+        ->setDescription(t('Nothing'))
         ->setReadOnly(TRUE)
         ->setRequired(FALSE);
 

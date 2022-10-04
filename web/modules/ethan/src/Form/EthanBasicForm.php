@@ -31,7 +31,7 @@ class EthanBasicForm extends FormBase {
 
     $form['message'] = [
       '#type' => 'textarea',
-      '#title' => $this->t('Message'),
+      '#title' => $this->t('Create Content here:'),
       '#required' => TRUE,
     ];
 
@@ -42,6 +42,35 @@ class EthanBasicForm extends FormBase {
       '#type' => 'submit',
       '#value' => $this->t('Send'),
     ];
+
+    $content = [];
+    $rows = [];
+    $headers = [
+      $this->t('CONTENT'),
+    ];
+
+    // WORKING HERE
+
+    // This is where we grab the data from the db and display it for the user
+    // $entries = $this->repository->load();
+
+    // Defining to remove warn
+    $entries = [];
+
+    foreach ($entries as $entry) {
+    // Sanitize each entry.
+    $rows[] = array_map('Drupal\Component\Utility\Html::escape', (array) $entry);
+    }
+    $content['table'] = [
+      '#type' => 'table',
+      '#header' => $headers,
+      '#rows' => $rows,
+      '#empty' => $this->t('No Ethan entities created'),
+    ];
+
+    $form['entry_list'] = $content;
+
+    // END WORKING HERE
 
     return $form;
   }
@@ -61,6 +90,16 @@ class EthanBasicForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
 
+    // WORKING HERE
+
+    // Current issue is with db table
+    $entity = Ethan::create([
+      'title' => 'Title ' . time(),
+      'uid' => 1,
+    ]);
+    $entity->set('content', $form_state->getValue('message'));
+    $entity->save();
+
     // # Create Node entity -> Pass it the machine name of our form
     // $node = Node::create([
     //   'type' => 'my_new_content', 
@@ -73,16 +112,10 @@ class EthanBasicForm extends FormBase {
     // $node->set('field_content', $form_state->getValue('message'));
     // // $node->set('field_content', "THIS IS BAD");
 
-    // # Save the node
+    # Save the node
     // $node->save();
 
-    // Current issue is with db table
-    $entity = Ethan::create([
-      'title' => 'Title ' . time(),
-      'uid' => 1,
-    ]);
-    $entity->set('content', $form_state->getValue('message'));
-    $entity->save();
+    // END WORKING HERE
 
   }
 

@@ -143,23 +143,24 @@ class Ethan extends ContentEntityBase implements EthanInterface {
 
     public static function preCreate(EntityStorageInterface $storage, array &$values)
     {
-        // parent::preCreate($storage_controller, $values);
+        // First param was $storage_controller before it was $storage
+        parent::preCreate($storage, $values);
 
-        // $values += [
-        //     'content' => \Drupal::currentUser()->id(),
-        // ];
+        $values += [
+            'content' => \Drupal::currentUser()->id(),
+        ];
     }
 
-    // public function preSave(EntityStorageInterface $storage)
-    // {
-    //     parent::preSave($storage);
+    public function preSave(EntityStorageInterface $storage)
+    {
+        parent::preSave($storage);
 
-    //     if (!$this->getOwnerId()) 
-    //     {
-    //         $this->setOwnerId(0);
-    //     }
+        if (!$this->getOwnerId()) 
+        {
+            $this->setOwnerId(0);
+        }
 
-    // }
+    }
 
     /**
      * {@inheritdoc}

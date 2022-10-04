@@ -9,7 +9,7 @@ ethan.example:
 ethan.form_basic:
   path: '/ethan-form'
   defaults:
-    _title: 'Ethan Form'
+    _title: 'Ethan Form/Content Entity'
     _form: 'Drupal\ethan\Form\EthanBasicForm'
   requirements:
     _permission: 'access content'

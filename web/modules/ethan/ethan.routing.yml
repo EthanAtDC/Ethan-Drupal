@@ -21,3 +21,11 @@ ethan.form_basic:
 #     _entity_form: ethan.Ethan
 #   requirements:
 #     _permission: 'access content'
+
+entity.ethan_new.settings:
+  path: 'admin/structure/ethan-new'
+  defaults:
+    _form: '\Drupal\ethan\Form\EthanNewSettingsForm'
+    _title: 'Ethan_New'
+  requirements:
+    _permission: 'administer ethan_new'

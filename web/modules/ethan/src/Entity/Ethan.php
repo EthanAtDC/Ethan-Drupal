@@ -52,16 +52,16 @@ class Ethan extends ContentEntityBase implements EthanInterface {
         ];
     }
 
-    // public function preSave(EntityStorageInterface $storage)
-    // {
-    //     parent::preSave($storage);
+    public function preSave(EntityStorageInterface $storage)
+    {
+        parent::preSave($storage);
 
-    //     if (!$this->getOwnerId()) 
-    //     {
-    //         $this->setOwnerId(0);
-    //     }
+        if (!$this->getOwnerId()) 
+        {
+            $this->setOwnerId(0);
+        }
 
-    // }
+    }
 
     /**
      * {@inheritdoc}
@@ -121,7 +121,7 @@ class Ethan extends ContentEntityBase implements EthanInterface {
         ->setRequired(FALSE);
 
 
-        $fields['content'] = BaseFieldDefinition::create('string')
+        $fields['content'] = BaseFieldDefinition::create('text_long')
             ->setLabel(t('Content'))
             ->setDescription(t('The content entered by our user'))
             ->setSettings([

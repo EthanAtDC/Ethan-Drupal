@@ -55,20 +55,20 @@ class EthanBasicForm extends FormBase {
     // $entries = $this->repository->load();
 
     // Defining to remove warn
-    $entries = [];
+    // $entries = [];
 
-    foreach ($entries as $entry) {
-    // Sanitize each entry.
-    $rows[] = array_map('Drupal\Component\Utility\Html::escape', (array) $entry);
-    }
-    $content['table'] = [
-      '#type' => 'table',
-      '#header' => $headers,
-      '#rows' => $rows,
-      '#empty' => $this->t('No Ethan entities created'),
-    ];
+    // foreach ($entries as $entry) {
+    // // Sanitize each entry.
+    // $rows[] = array_map('Drupal\Component\Utility\Html::escape', (array) $entry);
+    // }
+    // $content['table'] = [
+    //   '#type' => 'table',
+    //   '#header' => $headers,
+    //   '#rows' => $rows,
+    //   '#empty' => $this->t('No Ethan entities created'),
+    // ];
 
-    $form['entry_list'] = $content;
+    // $form['entry_list'] = $content;
 
     // END WORKING HERE
 
@@ -90,15 +90,19 @@ class EthanBasicForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
 
+
     // WORKING HERE
 
-    // Current issue is with db table
+    // Not sending content to entity?
     $entity = Ethan::create([
       'title' => 'Title ' . time(),
-      'uid' => 1,
+      'uuid' => 1,
     ]);
     $entity->set('content', $form_state->getValue('message'));
-    $entity->save();
+    $entity->save($form);
+
+    parent::submitForm($form, $form_state);
+
 
     // # Create Node entity -> Pass it the machine name of our form
     // $node = Node::create([
@@ -116,6 +120,19 @@ class EthanBasicForm extends FormBase {
     // $node->save();
 
     // END WORKING HERE
+
+  }
+
+  // Need function save to save entity?
+  // Submit will call save where save grabs the entity
+  public function save(array $form, FormStateInterface $form_state) 
+  {
+
+    // $result = parent::save($form, $form_state);
+
+    $entity = $this->getEntity();
+
+    return $entity;
 
   }
 

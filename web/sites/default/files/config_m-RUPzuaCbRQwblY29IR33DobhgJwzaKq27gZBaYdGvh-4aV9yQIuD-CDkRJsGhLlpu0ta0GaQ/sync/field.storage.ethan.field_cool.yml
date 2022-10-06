@@ -1,0 +1,21 @@
+uuid: 11364d70-8252-43ab-9d19-a6e50f67cc44
+langcode: en
+status: true
+dependencies:
+  module:
+    - ethan
+    - options
+id: ethan.field_cool
+field_name: field_cool
+entity_type: ethan
+type: list_float
+settings:
+  allowed_values: {  }
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

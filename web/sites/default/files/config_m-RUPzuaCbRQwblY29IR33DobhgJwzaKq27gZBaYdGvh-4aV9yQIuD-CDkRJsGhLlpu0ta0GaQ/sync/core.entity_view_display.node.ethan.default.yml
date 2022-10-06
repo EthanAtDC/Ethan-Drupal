@@ -1,0 +1,28 @@
+uuid: 75e72854-a9a8-4a3c-ae73-aae6f94a0882
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.ethan.body
+    - node.type.ethan
+  module:
+    - text
+    - user
+id: node.ethan.default
+targetEntityType: node
+bundle: ethan
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden: {  }

@@ -1,0 +1,18 @@
+uuid: 5fb175e3-d09e-48ae-96f9-3b24827c0e93
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Ethan
+type: ethan
+description: ''
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

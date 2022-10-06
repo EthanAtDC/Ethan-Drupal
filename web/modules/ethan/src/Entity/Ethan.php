@@ -15,7 +15,6 @@ use Drupal\Core\Entity\EntityChangedTrait;
  *
  * @ContentEntityType(
  *   id = "ethan",
- *   ),
  *   handlers = {
  *     "list_builder" = "Drupal\ethan\EthanNewListBuilder",
  *     "views_data" = "Drupal\views\EntityViewsData",
@@ -30,15 +29,11 @@ use Drupal\Core\Entity\EntityChangedTrait;
  *   admin_permission = "administer ethan",
  *   entity_keys = {
  *     "id" = "id",
- *     "content" = "content",
  *     "uuid" = "uuid",
- *   },
- * 
+ *   }
  * )
- * 
+ *
  */
-
-
 class Ethan extends ContentEntityBase implements EthanInterface {
 
     use EntityChangedTrait;
@@ -47,16 +42,13 @@ class Ethan extends ContentEntityBase implements EthanInterface {
     {
         parent::preCreate($storage, $values);
 
-        $values += [
-            'content' => \Drupal::currentUser()->id(),
-        ];
     }
 
     public function preSave(EntityStorageInterface $storage)
     {
         parent::preSave($storage);
 
-        if (!$this->getOwnerId()) 
+        if (!$this->getOwnerId())
         {
             $this->setOwnerId(0);
         }
@@ -66,14 +58,14 @@ class Ethan extends ContentEntityBase implements EthanInterface {
     /**
      * {@inheritdoc}
      */
-    public function getContent() 
+    public function getContent()
     {
-        return $this->get('content')->entity;
+        return $this->get('content')->first()->value;
     }
     /**
      * {@inheritdoc}
      */
-    public function setContent(UserInterface $content) 
+    public function setContent($content)
     {
         $this->content = $content;
         return $this;
@@ -81,18 +73,18 @@ class Ethan extends ContentEntityBase implements EthanInterface {
 
     public function getOwner()
     {
-        // return $this->get('user_id')->entity;     
+        // return $this->get('user_id')->entity;
     }
 
     public function getOwnerId()
     {
-        // return $this->get('user_id')->target_id;  
+        // return $this->get('user_id')->target_id;
     }
 
     public function setOwner(UserInterface $account)
     {
         // $this->set('user_id', $account->id());
-        // return $this;       
+        // return $this;
     }
 
     public function setOwnerId($uid)

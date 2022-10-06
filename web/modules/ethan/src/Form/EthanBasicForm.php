@@ -3,16 +3,31 @@
 namespace Drupal\ethan\Form;
 
 use Drupal;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormBase;
 use Drupal\ethan\Entity\Ethan;
 use \Drupal\node\Entity\Node;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\ethan\EthanInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a ethan form.
  */
 class EthanBasicForm extends FormBase {
+
+  /**
+   * @var Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
+
+  public function __construct(EntityTypeManagerInterface $entity_type_manager) {
+    $this->entityTypeManager = $entity_type_manager;
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static($container->get('entity_type.manager'));
+  }
 
   /**
    * {@inheritdoc}
@@ -48,6 +63,24 @@ class EthanBasicForm extends FormBase {
     $headers = [
       $this->t('CONTENT'),
     ];
+
+    $storage = $this->entityTypeManager->getStorage('ethan');
+    /** @var \Drupal\ethan\Entity\Ethan[] $entities */
+    $entities = $storage->loadMultiple();
+
+    // print 'ENTITIES => ' . print_r($entities, TRUE);
+
+    if (!empty($entities)) {
+      foreach ($entities as $entity) {
+        $rows[] = [
+          'id' => $entity->id(),
+          'uuid' => $entity->uuid(),
+          'content' => $entity->getContent(),
+        ];
+      }
+    }
+
+    print 'ROWS => ' .print_r($rows, true);
 
     // WORKING HERE
 
@@ -89,7 +122,7 @@ class EthanBasicForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
-
+ 
 
     // WORKING HERE
 
@@ -98,10 +131,12 @@ class EthanBasicForm extends FormBase {
       'title' => 'Title ' . time(),
       'uuid' => 1,
     ]);
-    $entity->set('content', $form_state->getValue('message'));
+    $entity->set('content', [
+      'value' => $form_state->getValue('message'),
+    ]);
     $entity->save($form);
+    // parent::submitForm($form, $form_state);
 
-    parent::submitForm($form, $form_state);
 
 
     // # Create Node entity -> Pass it the machine name of our form
@@ -112,11 +147,11 @@ class EthanBasicForm extends FormBase {
     //   'uid' => 1,
     // ]);
 
-    // # Retrieve the field data and form state for the node
+    // // # Retrieve the field data and form state for the node
     // $node->set('field_content', $form_state->getValue('message'));
     // // $node->set('field_content', "THIS IS BAD");
 
-    # Save the node
+    // # Save the node
     // $node->save();
 
     // END WORKING HERE
@@ -128,11 +163,7 @@ class EthanBasicForm extends FormBase {
   public function save(array $form, FormStateInterface $form_state) 
   {
 
-    // $result = parent::save($form, $form_state);
-
     $entity = $this->getEntity();
-
-    return $entity;
 
   }
 

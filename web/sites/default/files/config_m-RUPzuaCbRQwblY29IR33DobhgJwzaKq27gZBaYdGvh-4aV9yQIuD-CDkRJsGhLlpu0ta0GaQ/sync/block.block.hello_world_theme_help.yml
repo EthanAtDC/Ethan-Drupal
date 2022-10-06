@@ -1,0 +1,22 @@
+uuid: 10b876cf-4b50-4a16-98ea-1e22ba81363e
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - hello_world_theme
+_core:
+  default_config_hash: VfPFqqxfkomud5CO8DUijw85QIl9GIxh_nIxLOYESxg
+id: hello_world_theme_help
+theme: hello_world_theme
+region: sidebar_first
+weight: 0
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

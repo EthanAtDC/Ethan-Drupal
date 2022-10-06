@@ -1,0 +1,22 @@
+uuid: d195d594-672b-410e-a769-c1675173bc7d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - hello_world_theme
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: hello_world_theme_powered
+theme: hello_world_theme
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

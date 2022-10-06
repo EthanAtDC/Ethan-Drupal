@@ -1,0 +1,19 @@
+uuid: ab82061f-3598-4d1f-9214-d39e6537525f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_content
+    - node.type.my_new_content
+id: node.my_new_content.field_content
+field_name: field_content
+entity_type: node
+bundle: my_new_content
+label: Content
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

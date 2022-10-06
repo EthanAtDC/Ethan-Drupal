@@ -4,3 +4,107 @@
  * @file
  * Primary module hooks for ethan module.
  */
+
+/**
+ * Implements hook_form_alter().
+ */
+function ethan_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  if (isset($form['type']) && $form['type']['#value'] . '_node_settings' == $form_id) {
+    $upload_enabled_types = \Drupal::config('mymodule.settings')->get('upload_enabled_types');
+    $form['workflow']['upload_' . $form['type']['#value']] = [
+      '#type' => 'radios',
+      '#title' => t('Attachments'),
+      '#default_value' => in_array($form['type']['#value'], $upload_enabled_types) ? 1 : 0,
+      '#options' => [t('Disabled'), t('Enabled')],
+    ];
+    // Add a custom submit handler to save the array of types back to the config file.
+    $form['actions']['submit']['#submit'][] = 'mymodule_upload_enabled_types_submit';
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_field_values_init().
+ */
+function ethan_ENTITY_TYPE_field_values_init(\Drupal\Core\Entity\FieldableEntityInterface $entity) {
+  if (!$entity->foo->value) {
+    $entity->foo->value = 'some_initial_value';
+  }
+}
+
+use Drupal\Core\Render\Element;
+use Drupal\ethan\Entity\EthanNew;
+use Drupal\user\UserInterface;
+
+/**
+ * Implements hook_theme().
+ */
+function ethan_theme() {
+  return [
+    'ethan_new' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for ethan_new templates.
+ *
+ * Default template: ethan-new.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An associative array containing the ethan_new information and any
+ *     fields attached to the entity.
+ *   - attributes: HTML attributes for the containing element.
+ */
+function template_preprocess_ethan_new(array &$variables) {
+  $variables['view_mode'] = $variables['elements']['#view_mode'];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
+
+/**
+ * Implements hook_user_cancel().
+ */
+function ethan_user_cancel($edit, UserInterface $account, $method) {
+  switch ($method) {
+    case 'user_cancel_block_unpublish':
+      // Unpublish ethan_news.
+      $storage = \Drupal::entityTypeManager()->getStorage('ethan_new');
+      $ethan_new_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->condition('status', 1)
+        ->execute();
+      foreach ($storage->loadMultiple($ethan_new_ids) as $ethan_new) {
+        $ethan_new->set('status', FALSE);
+        $ethan_new->save();
+      }
+      break;
+
+    case 'user_cancel_reassign':
+      // Anonymize ethan_news.
+      $storage = \Drupal::entityTypeManager()->getStorage('ethan_new');
+      $ethan_new_ids = $storage->getQuery()
+        ->condition('uid', $account->id())
+        ->execute();
+      foreach ($storage->loadMultiple($ethan_new_ids) as $ethan_new) {
+        $ethan_new->setOwnerId(0);
+        $ethan_new->save();
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for user entities.
+ */
+function ethan_user_predelete(UserInterface $account) {
+  // Delete ethan_news.
+  $storage = \Drupal::entityTypeManager()->getStorage('ethan_new');
+  $ethan_new_ids = $storage->getQuery()
+    ->condition('uid', $account->id())
+    ->execute();
+  $ethan_news = $storage->loadMultiple($ethan_new_ids);
+  $storage->delete($ethan_news);
+}

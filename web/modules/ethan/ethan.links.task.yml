@@ -1,0 +1,22 @@
+entity.ethan_new.settings:
+  title: 'Settings'
+  route_name: entity.ethan_new.settings
+  base_route: entity.ethan_new.settings
+entity.ethan_new.view:
+  title: 'View'
+  route_name: entity.ethan_new.canonical
+  base_route: entity.ethan_new.canonical
+entity.ethan_new.edit_form:
+  title: 'Edit'
+  route_name: entity.ethan_new.edit_form
+  base_route: entity.ethan_new.canonical
+entity.ethan_new.delete_form:
+  title: 'Delete'
+  route_name: entity.ethan_new.delete_form
+  base_route: entity.ethan_new.canonical
+  weight: 10
+entity.ethan_new.collection:
+  title: 'Ethan_News'
+  route_name: entity.ethan_new.collection
+  base_route: system.admin_content
+  weight: 10

@@ -1,0 +1,5 @@
+ethan_new.add_form:
+  title: 'Add ethan_new'
+  route_name: entity.ethan_new.add_form
+  appears_on:
+    - entity.ethan_new.collection

@@ -1,0 +1,21 @@
+uuid: 4c170354-3248-4b83-a5b7-4b07900f98e7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.ethan.field_cool
+  module:
+    - ethan
+    - options
+id: ethan.ethan.field_cool
+field_name: field_cool
+entity_type: ethan
+bundle: ethan
+label: Cool
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_float

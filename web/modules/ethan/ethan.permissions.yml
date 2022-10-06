@@ -1,0 +1,3 @@
+administer ethan_new:
+  title: 'Administer ethan_new settings'
+  restrict access: true

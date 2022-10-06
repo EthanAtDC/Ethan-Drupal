@@ -1,0 +1,23 @@
+uuid: 1db9a149-13a7-482d-ac16-3fb77b7d7663
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.ethan
+  module:
+    - text
+id: node.ethan.body
+field_name: body
+entity_type: node
+bundle: ethan
+label: Ethan
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+field_type: text_with_summary

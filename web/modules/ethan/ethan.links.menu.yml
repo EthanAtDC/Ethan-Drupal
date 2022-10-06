@@ -1,0 +1,10 @@
+entity.ethan_new.settings:
+  title: 'Ethan_New'
+  description: 'Configure an Ethan_New entity type.'
+  route_name:  entity.ethan_new.settings
+  parent: system.admin_structure
+entity.ethan_new.collection:
+  title: 'Ethan_News'
+  description: 'List of ethan_news.'
+  route_name: entity.ethan_new.collection
+  parent: system.admin_content

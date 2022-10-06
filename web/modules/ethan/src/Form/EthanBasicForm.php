@@ -37,7 +37,6 @@ class EthanBasicForm extends FormBase {
     return 'ethan_ethan_basic';
   }
 
-
   /**
    * {@inheritdoc}
    */
@@ -61,14 +60,15 @@ class EthanBasicForm extends FormBase {
     $content = [];
     $rows = [];
     $headers = [
+      $this->t('ID'),
+      $this->t('UUID'),
       $this->t('CONTENT'),
     ];
 
     $storage = $this->entityTypeManager->getStorage('ethan');
     /** @var \Drupal\ethan\Entity\Ethan[] $entities */
     $entities = $storage->loadMultiple();
-
-    // print 'ENTITIES => ' . print_r($entities, TRUE);
+    
 
     if (!empty($entities)) {
       foreach ($entities as $entity) {
@@ -78,32 +78,15 @@ class EthanBasicForm extends FormBase {
           'content' => $entity->getContent(),
         ];
       }
+      $content['table'] = [
+        '#type' => 'table',
+        '#header' => $headers,
+        '#rows' => $rows,
+        '#empty' => $this->t('Entities here:')
+      ];
+
+      $form['entry_list'] = $content;
     }
-
-    print 'ROWS => ' .print_r($rows, true);
-
-    // WORKING HERE
-
-    // This is where we grab the data from the db and display it for the user
-    // $entries = $this->repository->load();
-
-    // Defining to remove warn
-    // $entries = [];
-
-    // foreach ($entries as $entry) {
-    // // Sanitize each entry.
-    // $rows[] = array_map('Drupal\Component\Utility\Html::escape', (array) $entry);
-    // }
-    // $content['table'] = [
-    //   '#type' => 'table',
-    //   '#header' => $headers,
-    //   '#rows' => $rows,
-    //   '#empty' => $this->t('No Ethan entities created'),
-    // ];
-
-    // $form['entry_list'] = $content;
-
-    // END WORKING HERE
 
     return $form;
   }
@@ -123,43 +106,17 @@ class EthanBasicForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->messenger()->addStatus($this->t('The message has been sent.'));
  
-
-    // WORKING HERE
-
-    // Not sending content to entity?
     $entity = Ethan::create([
       'title' => 'Title ' . time(),
-      'uuid' => 1,
+      'uuid' => 'UUID ' . time(),
     ]);
     $entity->set('content', [
       'value' => $form_state->getValue('message'),
     ]);
     $entity->save($form);
-    // parent::submitForm($form, $form_state);
-
-
-
-    // # Create Node entity -> Pass it the machine name of our form
-    // $node = Node::create([
-    //   'type' => 'my_new_content', 
-    //   'title' => 'Title ' . time(),
-    //   // 'field_content' => $form_state->getValue('task'),
-    //   'uid' => 1,
-    // ]);
-
-    // // # Retrieve the field data and form state for the node
-    // $node->set('field_content', $form_state->getValue('message'));
-    // // $node->set('field_content', "THIS IS BAD");
-
-    // # Save the node
-    // $node->save();
-
-    // END WORKING HERE
 
   }
 
-  // Need function save to save entity?
-  // Submit will call save where save grabs the entity
   public function save(array $form, FormStateInterface $form_state) 
   {
 
